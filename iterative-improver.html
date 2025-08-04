@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iterative Text Improver – WebLLM</title>
+  <!-- WebLLM Library -->
+  <script src="https://esm.run/@mlc-ai/web-llm" type="module"></script>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --primary: #0061ff;
+      --user-msg: #e3f2fd;
+      --assistant-msg: #f1f8e9;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: #222;
+    }
+    #app {
+      width: 100%;
+      min-height: 100vh;
+      padding: 1.5rem 1.5rem 0 1.5rem;
+    }
+    .controls-section {
+      max-width: 720px;
+      margin: 0 auto;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    textarea {
+      width: 100%;
+      padding: .75rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      resize: vertical;
+      font-size: 1rem;
+    }
+    .controls {
+      margin-top: .75rem;
+      display: flex;
+      gap: .75rem;
+      align-items: center;
+    }
+    .controls input[type="number"] {
+      width: 5rem;
+      padding: .4rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+    }
+    button {
+      padding: .6rem 1.2rem;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      font-size: .9rem;
+      transition: opacity .2s;
+    }
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+    #initStatus {
+      font-size: .85rem;
+      margin-top: .5rem;
+      color: #555;
+    }
+    #iterations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      box-sizing: border-box;
+    }
+    .iteration-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e0e0e0;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+    .iteration-card.original {
+      background: var(--user-msg);
+      border-left: 4px solid #2196f3;
+    }
+    .iteration-card.improved {
+      background: var(--assistant-msg);
+      border-left: 4px solid var(--primary);
+    }
+    .iteration-header {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 0.5rem;
+    }
+    .iteration-content {
+      flex: 1;
+      font-size: 0.95rem;
+    }
+    .error-card {
+      background: #ffebee;
+      border-left: 4px solid #f44336;
+      color: #c62828;
+    }
+    @media (max-width: 768px) {
+      #iterations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 0.8rem;
+        padding: 0.8rem;
+      }
+      .iteration-card {
+        padding: 1rem;
+        min-height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="controls-section">
+      <h1>Iterative Text Improver (WebLLM)</h1>
+
+      <textarea id="inputText" rows="6" placeholder="Paste or type text you want improved..."></textarea>
+
+      <div class="controls">
+        <label for="numIter">Iterations:</label>
+        <input id="numIter" type="number" min="1" max="20" value="3" />
+        <button id="runBtn">Run</button>
+        <button id="stopBtn" disabled>Stop</button>
+      </div>
+
+      <div id="initStatus">Loading model…</div>
+    </div>
+
+    <div id="iterations-grid"></div>
+  </div>
+
+  <script type="module">
+    import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+
+    const runBtn = document.getElementById("runBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const inputText = document.getElementById("inputText");
+    const numIter = document.getElementById("numIter");
+    const iterationsGrid = document.getElementById("iterations-grid");
+    const statusLabel = document.getElementById("initStatus");
+
+    // Track cancel state
+    let cancelRequested = false;
+    let engine = null;
+
+    // Append an iteration card to UI
+    function appendIterationCard(role, content, iteration = null) {
+      const card = document.createElement("div");
+      card.classList.add("iteration-card");
+      
+      if (role === "user") {
+        card.classList.add("original");
+      } else if (role === "assistant") {
+        card.classList.add("improved");
+      } else if (role === "error") {
+        card.classList.add("error-card");
+      }
+      
+      const header = document.createElement("div");
+      header.className = "iteration-header";
+      header.textContent = iteration !== null ? 
+        (role === "user" ? "Original Text" : `Iteration ${iteration}`) : 
+        (role === "error" ? "Error" : "Result");
+      
+      const contentDiv = document.createElement("div");
+      contentDiv.className = "iteration-content";
+      contentDiv.textContent = content;
+      
+      card.appendChild(header);
+      card.appendChild(contentDiv);
+      iterationsGrid.appendChild(card);
+    }
+
+    async function loadEngine() {
+      try {
+        const initProgressCallback = (report) => {
+          statusLabel.textContent = report.text;
+        };
+        
+        // Updated model name and engine creation
+        const selectedModel = "Llama-3.2-1B-Instruct-q4f16_1-MLC";
+        
+        // Try different engine creation methods for compatibility
+        if (webllm.CreateMLCEngine) {
+          engine = await webllm.CreateMLCEngine(selectedModel, { initProgressCallback });
+        } else if (webllm.CreateWebLLMEngine) {
+          engine = await webllm.CreateWebLLMEngine(selectedModel, { initProgressCallback });
+        } else {
+          engine = await webllm.CreateEngine(selectedModel, { initProgressCallback });
+        }
+        
+        statusLabel.textContent = "Model loaded!";
+        runBtn.disabled = false;
+        return engine;
+      } catch (error) {
+        console.error("Error loading engine:", error);
+        statusLabel.textContent = "Error loading model. Please refresh and try again.";
+        appendIterationCard("error", `Failed to load model: ${error.message}`);
+        return null;
+      }
+    }
+
+    // Initialize the engine
+    loadEngine();
+
+    runBtn.addEventListener("click", async () => {
+      if (!engine) {
+        appendIterationCard("error", "Model not loaded yet. Please wait.");
+        return;
+      }
+      
+      if (!inputText.value.trim()) {
+        appendIterationCard("error", "Please enter some text to improve.");
+        return;
+      }
+      
+      runBtn.disabled = true;
+      stopBtn.disabled = false;
+      cancelRequested = false;
+      iterationsGrid.innerHTML = ""; // clear previous run
+
+      try {
+        let iterations = Number(numIter.value);
+        let currentText = inputText.value.trim();
+
+        // Show original text card
+        appendIterationCard("user", currentText, 0);
+
+        for (let i = 1; i <= iterations; i++) {
+          if (cancelRequested) break;
+          
+          statusLabel.textContent = `Processing iteration ${i}/${iterations}...`;
+          
+          // Prompt the model to improve the text
+          const messages = [
+            {
+              role: "system",
+              content: "You are an expert improvement machine. You will make the text better to make it easy to understand, but also technical enough to satisfy a highly educated person."
+            },
+            { role: "user", content: currentText }
+          ];
+
+          const reply = await engine.chat.completions.create({
+            messages: messages,
+            temperature: 0.7,
+            max_tokens: 2048
+          });
+
+          if (reply && reply.choices && reply.choices[0]) {
+            const improved = reply.choices[0].message.content.trim();
+            appendIterationCard("assistant", improved, i);
+            currentText = improved; // feed to next iteration
+          } else {
+            appendIterationCard("error", `Failed to get response for iteration ${i}`);
+            break;
+          }
+        }
+
+        statusLabel.textContent = "Complete!";
+      } catch (error) {
+        console.error("Error during processing:", error);
+        appendIterationCard("error", `Error: ${error.message}`);
+        statusLabel.textContent = "Error occurred during processing.";
+      }
+
+      runBtn.disabled = false;
+      stopBtn.disabled = true;
+    });
+
+    stopBtn.addEventListener("click", () => {
+      cancelRequested = true;
+      stopBtn.disabled = true;
+      runBtn.disabled = false;
+      statusLabel.textContent = "Stopped.";
+    });
+  </script>
+</body>
+</html>
