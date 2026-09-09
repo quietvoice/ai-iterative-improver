@@ -1,0 +1,1030 @@
+FUTURE, MONETIZATION, AND ECONOMIC-VALUE PLAN
+Iterative Improver of Input via LLM, Agents, and Source Code
+ai-iterative-improver / Curioforce Corporation
+
+Document date: 9 September 2026
+Horizon: 2027-2035 (with a 2035 "mature adoption" snapshot)
+Status: planning estimate, not an audited forecast
+
+This note does three jobs. First, it describes a product future for the
+existing browser-based iterative improver (WebLLM recursive text
+refinement) as it grows into agents and source-code loops. Second, it
+lays out how that capability can be monetized without abandoning the
+privacy-first, on-device character of the current prototype. Third, it
+estimates how much extra monetary value the capability class — not
+only Curioforce's own revenue — could create worldwide, with worked
+examples for five countries of different economic type.
+
+Company revenue and economic surplus are different quantities. A
+productivity tool can create tens or hundreds of billions of dollars of
+value in wages saved, output raised, and errors avoided while the
+vendors of that tool collect only a few billion in subscriptions. Both
+are calculated below, and they are not interchangeable.
+
+
+========================================================================
+1. WHAT THE PRODUCT IS TODAY
+========================================================================
+
+The current artifact (iterative-improver.html) is a Chrome / WebGPU
+client that:
+
+  - Loads a local instruction model via WebLLM
+    (Llama-3.2-1B-Instruct-q4f16_1-MLC in the public beta).
+  - Takes a user text as input.
+  - Re-prompts the model N times, feeding each output back in as the
+    next input.
+  - Displays every generation as a card so the user can inspect the
+    trajectory, not only the last draft.
+
+The beta lives at https://recursive-ai.curioforce.com/beta/.
+The license of the public repository is MIT.
+
+The economic idea already present in this small prototype is the
+important one: improvement is a loop over inputs, not a one-shot
+chat. The scarce object is a better starting artifact (prompt, spec,
+paragraph, function) that every later human or agent will consume.
+
+That is the seed. The rest of this document is what happens if that
+seed is grown into a general iterative improver of inputs, including
+source code, with agents as the workers inside the loop.
+
+
+========================================================================
+2. PRODUCT FUTURE: FROM TEXT CARDS TO AN INPUT COMPILER
+========================================================================
+
+Think of the product as an input compiler. Humans and organizations
+constantly emit drafts: sentences, tickets, policies, SQL, tests,
+agent instructions, pull requests. Each draft is an input to someone
+else's work. Recursive improvement raises the quality of that input
+before it is expensive to reverse.
+
+2.1 Three stacked loops (the technical core)
+
+  Loop A — Artifact loop (already shipped in miniature)
+      draft -> critic -> revise -> stop when a verifier says "good
+      enough". Today the critic and the reviser are the same small
+      local model. Tomorrow they are specialized.
+
+  Loop B — Agent loop
+      A planner decomposes the improvement job (clarity, technical
+      density, factuality, style, safety, locale). Specialist agents
+      attack one axis each. A chair agent merges patches. This is
+      how the product escapes the "make it nicer" prompt and becomes
+      a production system.
+
+  Loop C — Source loop
+      The same machinery operates on a repository: files, diffs,
+      tests, types, comments, CI logs. Source code is both an input
+      (improve this module) and the substrate that implements the
+      improver itself. The improver can therefore improve its own
+      prompts, evals, and tool wrappers — under human merge control.
+
+These three loops are the same idea at three granularities. That
+sameness is the product: one improvement protocol, many surfaces.
+
+2.2 Capability roadmap (indicative, not a staffing plan)
+
+  Phase 0 (now)
+      Local WebLLM text iteration. Visible trajectory. Stop button.
+      Works on older Intel iGPUs with 32-bit quantized models.
+
+  Phase 1 — Input objects, not just blobs of prose (next product step)
+      Treat prompts, tickets, RFCs, emails, and code spans as typed
+      objects. Persist iteration history. Allow the user to pin a
+      generation, branch, or revert. Add stop conditions other than
+      "N times": rubric score, length band, reading level, test pass.
+
+  Phase 2 — Hybrid runtime
+      Keep on-device as the default for private drafts. Route heavy
+      jobs (long context, strong reasoning, multilingual) to a
+      cloud or self-hosted model. The commercial differentiator is
+      not "we have a model"; it is "we own the loop, the rubric, and
+      the audit trail, and we can run where the data is allowed to
+      live."
+
+  Phase 3 — Agents as first-class improvers
+      Critic, rewriter, fact-checker, locale adapter, security
+      reviewer, style-guide enforcer. Each agent is a small program
+      with a contract, not a hidden prompt. Users can swap agents
+      the way they swap linters.
+
+  Phase 4 — Source-code native
+      Editor and CI integration: improve this diff; raise this
+      docstring to match the types; generate a failing test from the
+      comment; rewrite the agent YAML that produced a bad plan.
+      Repository-level memory (house style, forbidden APIs, prior
+      review comments) becomes the organization's compounding asset.
+
+  Phase 5 — Organization compiler
+      Teams publish improvement recipes: "Japanese keiyaku into
+      plain language + risk flags", "HIPAA-safe patient letter",
+      "PEP 8 + our internals". Marketplace plus private catalogs.
+      This is where switching costs and gross margin live.
+
+  Phase 6 — Governed self-improvement
+      The system proposes changes to its own recipes and evals,
+      never silently. Human or policy-agent merge. This is the
+      recursive claim made honest: recursion is a reviewable
+      patch, not an unbounded agent.
+
+2.3 Why this is a distinct product, not "another chatbot"
+
+  Generic chat generates an answer. An iterative improver compiles
+  an input so that many later answers get cheaper and better. The
+  unit of value is the raised quality of a reusable artifact:
+  a prompt that 200 agents will call, a spec that 12 engineers will
+  implement, a statute that 4 million citizens will try to obey, a
+  module that will run for a decade.
+
+  On-device inference is not a demo trick. It is how the product
+  enters hospitals, ministries, law firms, and factories that will
+  not paste source into a public model. It is also how the product
+  reaches users who cannot afford continuous API spend — which
+  matters for the Kenya and India cases below.
+
+2.4 What "done" looks like in 2035
+
+  A knowledge worker's default gesture is not "ask a model" but
+  "improve this input under my organization's recipes, locally if
+  possible, with a transcript I can show an auditor." Agents consume
+  those improved inputs by default. Source repositories have an
+  improver in CI the way they have a formatter and a test runner.
+  The company's own prompts and agent graphs are improved on a
+  cadence, with diffs.
+
+
+========================================================================
+3. MONETIZATION PLAN
+========================================================================
+
+The public repo is MIT. That is a distribution strategy, not a
+business model. The business sits on top: hosted loop, private
+agents, recipes, compliance, and source-code integration.
+
+3.1 Principle: sell the loop and the memory, not the tokens
+
+  Token margin will keep compressing. Local models will keep
+  improving. A durable price is charged for:
+
+    - orchestration of critic/reviser/verifier agents
+    - organizational memory (style, policy, prior diffs)
+    - connectors (IDE, Git, ticket systems, DMS)
+    - guarantees (SSO, residency, audit, evals, SLAs)
+    - domain recipes that actually move a rubric
+
+  On-device inference can remain free or near-free. That fills the
+  top of the funnel and matches the current Chrome/WebGPU beta.
+
+3.2 Packaging
+
+  A. Personal (free)
+      Browser improver, local model, limited iterations, public
+      recipes. Conversion engine and global goodwill. Accept that
+      most users never pay. Grammarly-class products have shown
+      that a minority of paying users can fund a large free base.
+
+  B. Pro — individuals and freelancers
+      Indicative 2027 list: USD 12-20 / user / month.
+      Cloud models for hard jobs, longer history, prompt/object
+      types, export, slightly better local models, code-span mode.
+
+  C. Team
+      Indicative USD 20-35 / user / month.
+      Shared recipes, shared memory, comment-on-iteration, role
+      permissions. This is the Grammarly Business / Copilot
+      Business analogue.
+
+  D. Enterprise / on-prem / air-gap
+      ACV USD 40k-400k+ / year depending on seats and residency.
+      VPC or fully local. SCIM, SIEM, DLP, customer-managed keys,
+      eval harness, legal hold on iteration transcripts. Japan,
+      German, and U.S. regulated buyers live here. High margin if
+      support is productized.
+
+  E. Developer / CI
+      Per-active-repo or per-K-improvements pricing, or bundled
+      with Team. "Improve this PR" as a required check. Natural
+      expansion from text users in engineering orgs.
+
+  F. API ("improvement as a service")
+      POST a typed artifact + recipe; receive a scored trajectory.
+      Priced per improvement-run, with a minimum monthly. This is
+      how other agents, IDEs, and document products embed the loop
+      without users ever seeing Curioforce's UI.
+
+  G. Recipe marketplace
+      Revenue share with domain authors (legal, medical writing,
+      JIS/ISO, accessibility, tax, grant writing). Take rate
+      15-25%. Also the wedge into languages underserved by
+      English-first copilots (Japanese, Portuguese, Swahili,
+      Hindi).
+
+  H. Education and public sector
+      Campus and ministry licenses, often with local models and
+      no training on tenant data. Lower ARPU, high seat count,
+      political legitimacy. Kenya's public service and India's
+      state education boards are this SKU, not Pro.
+
+  I. Hardware and runtime partnerships (optional, later)
+      Browser/NPU OEMs, Japanese PC vendors, Android OEMs: ship
+      the improver as a system component. Revenue is license or
+      pre-install, not seats. Only pursue once the loop is
+      obviously better than a generic assistant.
+
+3.3 Who pays, in order of likely willingness
+
+  1. Software teams that already buy Copilot-class tools and still
+     lose days to bad tickets and bad PR descriptions.
+  2. Professional firms (legal, accounting, consulting, architecture)
+     where a better first draft has billable-hour leverage.
+  3. Exporters of knowledge work (India IT/BPM, Kenya BPO) whose
+     clients score them on document and code quality.
+  4. Manufacturers and operators (Japan, later Germany-like buyers)
+     drowning in procedures, work instructions, and supplier specs.
+  5. Governments that must publish plain-language rules.
+  6. Consumers and students — large volume, thin ARPU, still
+     useful as a model-quality and recipe laboratory.
+
+3.4 Indicative company revenue path (Curioforce or a successor entity)
+
+  These are planning ranges for the vendor of this loop, assuming
+  competent execution, not a guarantee. They are much smaller than
+  the economic-surplus figures in section 5.
+
+            2027        2029        2031        2035
+  Seats
+    paid    8k-25k      80k-250k    0.3-1.0M   0.8-4.0M
+  ARR
+    low     $2M         $18M        $55M       $160M
+    base    $6M         $45M        $140M      $480M
+    high    $15M        $110M       $400M      $1.4B
+
+  Mix shift: 2027 mostly Pro; 2029 Team + first enterprise;
+  2031 CI/API becomes material; 2035 enterprise + API + marketplace
+  are more than half of revenue if the source-code loop works.
+
+  Category TAM (all vendors of specialized iterative / agentic
+  improvement of documents, prompts, and code, excluding generic
+  chat): roughly USD 2.5-4B in 2028 and USD 6-12B in 2035. That sits
+  inside a larger AI writing + coding assistant market (already
+  about USD 2.7B for writing tools in 2026, plus many billions for
+  coding assistants). Winning 5-8% of the specialized slice is a
+  category-leader outcome; 0.5-2% is a healthy niche.
+
+3.5 Unit economics (design targets)
+
+  Gross margin
+      On-device usage: >90% (almost no COGS).
+      Cloud-routed Pro: 65-80% after model spend.
+      Enterprise on-prem: 70-85% after support.
+  Payback on CAC: <12 months for self-serve; <18 months for
+      enterprise.
+  Keep a free local path forever. It is both ethics and CAC.
+
+3.6 Go-to-market sequence (matches the five-country logic later)
+
+  1. Double down on the public beta: English + Japanese first
+     (founder/language fit, on-device privacy, aging-labor story).
+  2. Developer loop (GitHub/GitLab app) — global, English, usage-
+     based, lands in the U.S. and India almost automatically.
+  3. Team recipes for IT-services firms in India (export quality).
+  4. Portuguese recipe pack and São Paulo / Lisbon cloud region
+     (Brazil).
+  5. Public-sector / education SKU with fully local models for
+     Kenya and similar lower-middle-income digital hubs — not
+     because ARPU is high, but because the on-device story is
+     true there and it seeds African language recipes.
+
+3.7 What not to monetize early
+
+  Do not sell raw model access. Do not train on customer artifacts
+  by default. Do not lock iteration transcripts behind a paywall
+  so aggressively that users cannot see why a change happened —
+  the transcript is the product's trust surface.
+
+
+========================================================================
+4. HOW THE ECONOMIC VALUE IS CALCULATED
+========================================================================
+
+This section is the methodology. Country numbers in section 6 are
+mechanical applications of it. If you disagree with a parameter, you
+can rescale; the structure should stay.
+
+4.1 Two different "values"
+
+  (i)  Vendor revenue — section 3.4. What buyers pay Curioforce and
+       peers. Small.
+  (ii) Economic surplus — this section. Time saved, extra output,
+       fewer defects, extra trade in knowledge services. Large.
+       Most of it accrues to users and their customers, not to
+       the vendor.
+
+  The user question is about (ii): how much more monetary value the
+  capability can create around the world.
+
+4.2 Scope: incremental, not "all of AI"
+
+  By 2026 a large share of knowledge workers already have generic
+  chatbots. The surplus below is the extra value of specialized
+  iterative improvement of inputs (multi-step critic/revise,
+  recipes, agents, source loops) over that generic baseline.
+
+  It is therefore smaller than headline studies that attribute
+  4-15% of GDP to all AI (IMF 2025 TFP scenarios; PwC 2025 "Value
+  in Motion"; WTO 2025 trade-and-AI simulations). Those studies
+  are used only as an outer ceiling: this product class cannot
+  plausibly exceed a modest slice of "all AI" surplus.
+
+4.3 Global labor base (2026)
+
+  World nominal GDP (implied by IMF WEO April 2026 country
+  figures, U.S. ~26% share): about USD 124 trillion.
+
+  Global knowledge-worker compensation: USD 35-50 trillion / year
+  (synthesis of ILO/OECD wage bills and occupational studies;
+  central case USD 42 trillion). About 1 billion people.
+
+  Software developers (~30 million) are a high-intensity subset:
+  blended fully loaded cost about USD 80k, or ~USD 2.4 trillion.
+  Remaining knowledge-worker compensation ~USD 39.6 trillion.
+
+4.4 Addressable time (what the improver actually touches)
+
+  Not all knowledge work is drafting. The improver bites on:
+
+    - writing and revising documents, tickets, policies, emails
+    - designing prompts and agent instructions
+    - writing and reviewing source, tests, comments, diffs
+
+  Assigned shares of labor cost:
+
+    Developers:          45% of their time/cost is in-scope
+    Other knowledge work: 12% of time/cost is in-scope
+
+  Addressable labor cost:
+    0.45 * 2.4T  = USD 1.08T
+    0.12 * 39.6T = USD 4.75T
+    Total          USD 5.83T   (~14% of knowledge-worker pay)
+
+  This is the "tax base" the lift percentage is applied to.
+
+4.5 Lift, adoption, quality
+
+  Lift = net productivity gain on in-scope tasks versus generic
+  chat (fewer revision cycles, better specs, fewer downstream
+  defects that still show up as extra time). Conservative numbers
+  are used because generic AI already captured the easy wins.
+
+            Lift on in-scope   Adoption of this    Quality multiplier
+            tasks, 2035       class of tool, 2035 (defect/value extra)
+  Conservative  6%              15%               1.50
+  Base           12%             35%               1.65
+  Optimistic     22%             55%               1.80
+
+  Quality multiplier: time saved is not the whole surplus. A
+  better contract, a clearer statute, a passing test suite, or a
+  prompt that prevents 200 bad agent runs has value above the
+  minutes of typing avoided. The multiplier is applied to the
+  time-saving term, not to all of GDP.
+
+  Evidence anchors (task-level, then haircut for "incremental"):
+    - Noy & Zhang (2023): ~40% faster, ~18% higher quality on
+      writing with ChatGPT (versus no AI).
+    - Brynjolfsson, Li, Raymond: ~14% in customer support.
+    - World Bank GEP June 2026: 15% in Philippine support agents;
+      50%+ on some cognitive tasks; experts sometimes see zero.
+    - Copilot-class coding studies: often 20-55% faster on
+      isolated tasks, much less in full organizational throughput.
+
+  Incremental 6-22% on a 14% slice of knowledge work is a deliberate
+  haircut of those headlines.
+
+4.6 2035 global surplus (capability class, annual, 2026 USD)
+
+  Time-saving term     = 5.83T * lift * adoption
+  Total surplus        = time-saving * quality multiplier
+
+  Conservative: 5.83T * 0.06 * 0.15 = 0.052T; *1.50 = USD 79 billion
+  Base:         5.83T * 0.12 * 0.35 = 0.245T; *1.65 = USD 404 billion
+  Optimistic:   5.83T * 0.22 * 0.55 = 0.705T; *1.80 = USD 1.27 trillion
+
+  As a share of 2026 world GDP (~USD 124T):
+      conservative 0.06%   |   base 0.33%   |   optimistic 1.0%
+
+  That is intentionally well below "AI adds 4% to world GDP"
+  (IMF high-TFP, ~10-year level effect) and far below PwC's +15
+  percentage points by 2035 for all AI. A specialized input
+  compiler should not be confused with the entire AI revolution.
+
+4.7 Cumulative 2027-2035 (base, undiscounted, 2026 USD)
+
+  Adoption is ramped, not a step function. Illustrative path for
+  the base case (share of addressable labor using the tool class):
+
+    2027 3%   2028 7%   2029 12%  2030 18%  2031 23%
+    2032 28%  2033 32%  2034 34%  2035 35%
+
+  Holding the USD 5.83T base and 12% lift fixed (a simplification
+  that understates growth of the knowledge-work bill):
+
+    Annual surplus (with 1.65 quality factor), USD billions:
+    2027  35     2028  81     2029 139    2030 208    2031 266
+    2032 323     2033 370    2034 393    2035 404
+
+    Nine-year undiscounted sum, base: about USD 2.2 trillion
+    Conservative path (~40% of base): ~USD 0.9 trillion
+    Optimistic path (~2.5x base, faster adoption): ~USD 5.5 trillion
+
+  Discounted at 5% real, base cumulative is about USD 1.7 trillion
+  in 2026 present value. These cumulatives are the headline "how
+  much more monetary value" over the first commercial decade.
+
+4.8 Channels the model still under-counts (not added to the total)
+
+  - Scientific and engineering throughput (faster iteration on
+    papers, protocols, CAD comments) beyond office labor share.
+  - Trade creation: WTO 2025 finds AI can raise global trade
+    volumes substantially if poor countries catch up in digital
+    infrastructure. Only a sliver is included via India's export
+    term and Kenya's BPO add-on.
+  - Compute savings: better prompts waste fewer API tokens. If
+    global inference spend is USD 100-200B by 2035, a 10% waste
+    cut is USD 10-20B — material for vendors, small versus labor.
+  - Jevons effects: some time saved is spent producing more
+    artifacts. The quality multiplier partly captures this; a
+    full general-equilibrium model is not attempted.
+
+4.9 Channels that could shrink the surplus (also not subtracted)
+
+  - Displacement without redeployment (value shows up as profits
+    and cheaper goods, not wage bills — surplus still exists, but
+    distribution sours).
+  - Homogenized junk at scale (recursive improvement without a
+    good verifier can polish errors). That is why Phase 6
+    governance is a product requirement, not a CSR appendix.
+  - Energy and accelerator cost if everything moves off-device.
+  - Inequality across countries (IMF 2025 "Mind the Gap"):
+    advanced economies capture up to ~2x the income gain of
+    low-income countries unless infrastructure and skills catch up.
+    On-device local models are the product's answer to that gap;
+    they do not automatically close it.
+
+
+========================================================================
+5. WORLD SNAPSHOT
+========================================================================
+
+  2035 extra annual surplus from this capability class
+      Conservative   USD 79 billion
+      Base           USD 404 billion
+      Optimistic     USD 1.27 trillion
+
+  2027-2035 cumulative extra surplus
+      Conservative   ~USD 0.9 trillion
+      Base           ~USD 2.2 trillion
+      Optimistic     ~USD 5.5 trillion
+
+  Vendor revenue of all firms in the specialized category, 2035
+      roughly USD 6-12 billion (base ~USD 8B)
+  Of which a well-executed Curioforce-like firm
+      base ~USD 0.5B ARR; stretch ~USD 1.4B
+
+  Rule of thumb: users keep on the order of 50-80 times what they
+  pay vendors (404B / 8B ≈ 50). That is the usual pattern for
+  horizontal productivity software and is why the economic story
+  is much larger than the SaaS story.
+
+  Five-country base surplus in 2035 (from section 6):
+      United States  USD 178B
+      Japan           USD  34B
+      India           USD  21B  (of which ~USD 11B in India)
+      Brazil          USD   3.0B
+      Kenya           USD   0.8B
+      Five-country    USD 237B  (about 59% of the world base,
+                                 because knowledge-worker pay is
+                                 concentrated in rich countries)
+
+  The remaining ~USD 167B in the world base sits in China, the
+  rest of Europe, Korea, Canada, the rest of South and Southeast
+  Asia, etc. Those geographies are not modeled in detail here.
+
+
+========================================================================
+6. FIVE COUNTRIES, FIVE ECONOMIC TYPES
+========================================================================
+
+Countries were chosen to differ by income, industrial structure,
+language, and how the product would actually land:
+
+  1. United States  — advanced knowledge-services superpower
+  2. Japan          — advanced, aging, labor-scarce, language-specific
+  3. India          — large emerging digital-services exporter
+  4. Brazil         — large emerging mixed economy, Portuguese
+  5. Kenya          — lower-middle-income East African digital hub
+
+Macro anchors (IMF WEO April 2026, GDP at current USD):
+
+  United States   USD 32.38 trillion     GDP/capita ~USD 94,400
+  Japan           USD  4.38 trillion     GDP/capita ~USD 35,700
+  India           USD  4.15 trillion     GDP/capita ~USD  2,800
+  Brazil          USD  2.64 trillion     GDP/capita ~USD 12,300
+  Kenya           USD  0.147 trillion    GDP/capita ~USD  2,700
+
+All surplus figures below are 2035 annual, 2026 USD, incremental
+to generic chatbots. Formula:
+
+  surplus = (knowledge-worker compensation * addressable share)
+             * lift * adoption * (1 + quality_addon)
+  where quality multiplier = 1 + quality_addon.
+
+------------------------------------------------------------------------
+6.1 UNITED STATES
+    Type: high-income, knowledge-intensive services superpower
+------------------------------------------------------------------------
+
+  Why this type matters
+      The U.S. is where the largest pile of knowledge-worker pay
+      sits (~USD 10-11 trillion; ~100 million workers; ~38-42% of
+      employment). Intangible investment is already ~15.6% of GDP
+      (WIPO 2026). Software, law, finance, media, and federal
+      paperwork are all input factories. If the improver cannot
+      create value here, it cannot create value anywhere.
+
+  Parameters (base)
+      KW compensation              USD 10.5T
+      Addressable share            16%  -> USD 1.68T in-scope
+      Lift                          13%  (generic AI already common,
+                                          so incremental is moderate;
+                                          code/agent loops add more)
+      Adoption 2035               48%
+      Quality multiplier           1.70
+
+  2035 surplus
+      Time term    1.68T * 0.13 * 0.48 = USD 105B
+      With quality  105 * 1.70          = USD 178B
+      Conservative                        USD  31B
+      Optimistic                          USD 385B
+
+  As % of U.S. GDP (2026): base ~0.55%.
+
+  Where the dollars appear
+      - Software: fewer failed features from bad tickets; cleaner
+        PRs. A 1% effective throughput gain on a ~USD 1T+ software
+        product sector is already tens of billions; only a fraction
+        is counted above.
+      - Professional services: first-draft leverage on billable
+        work. Some surplus is competed away into lower client fees.
+      - Public sector: FAR supplements, benefit letters, FDA-ish
+        guidance in plain language — large welfare, messy GDP.
+
+  Monetization fit
+      Highest ARPU on Earth. Enterprise + CI + API. This is the
+      cash engine that funds Japanese on-prem and Kenyan public
+      SKUs. Compete with Copilot, Grammarly, and internal agent
+      platforms on the loop and the transcript, not on the LLM.
+
+  Distribution warning
+      Gains accrue first to firms that already have Git, SSO, and
+      data-governance staff. Without the free on-device tier, the
+      U.S. story would be a pure inequality amplifier inside the
+      country as well as across countries.
+
+------------------------------------------------------------------------
+6.2 JAPAN
+    Type: high-income, aging, labor-scarce, manufacturing + services,
+          non-English language, privacy-sensitive
+------------------------------------------------------------------------
+
+  Why this type matters
+      Japan is the test of whether recursive improvement helps when
+      you cannot hire more people. Services are ~70% of GDP;
+      manufacturing still sets the quality culture. Documentation
+      (work instructions, supplier specs, regulatory filings,
+      keiyaku) is a national time sink. On-device WebLLM matches
+      corporate and public-sector refusal to send source to a U.S.
+      cloud. This is also Curioforce's linguistic home field.
+
+  Parameters (base)
+      KW headcount                 ~28 million of ~69M labor force
+      Blended KW compensation       ~USD 55k
+      KW compensation bill          USD 1.54T
+      Addressable share            18%  -> USD 277B in-scope
+      Lift                          16%  (labor shortage means time
+                                          saved is more likely to
+                                          become output, not slack)
+      Adoption 2035               42%
+      Quality multiplier           1.85 (defect-sensitive industry)
+
+  2035 surplus
+      Time term    277B * 0.16 * 0.42 = USD 18.6B
+      With quality  18.6 * 1.85        = USD 34.4B
+      Conservative                     USD  6.6B
+      Optimistic                       USD  69B
+
+  As % of Japanese GDP: base ~0.79% — higher intensity than the
+  U.S. because labor is the binding constraint.
+
+  Where the dollars appear
+      - SME manufacturers: clearer work instructions, fewer line
+        stops. Value is in avoided downtime, not word count.
+      - Large exporters: bilingual specs (Japanese <-> English)
+        with a critic agent on both sides.
+      - Public sector and banks: residency-safe drafting.
+      - Care and municipal services: staff time is scarce; even
+        small drafting gains are operationally large.
+
+  Monetization fit
+      Enterprise / on-prem first, not viral Pro. Recipe packs:
+      keiyaku plain language, JIS phrasing, bilingual specs.
+      Hardware pre-install on domestic PCs is plausible later.
+      Price in JPY, invoice through a local entity, accept long
+      sales cycles. This SKU subsidizes itself via high ACV, not
+      via seat volume.
+
+------------------------------------------------------------------------
+6.3 INDIA
+    Type: large emerging economy; global knowledge-work factory
+------------------------------------------------------------------------
+
+  Why this type matters
+      India is where improved inputs are exported. Software and
+      ITES exports are a few hundred billion dollars (computer
+      services already >40% of services exports; consulting the
+      fastest climber). A better ticket, test, or runbook written
+      in Bengaluru or Hyderabad shows up in a U.S. or European
+      client's product. Counting only Indian wages understates
+      world value; counting all client surplus as "India's GDP"
+      overstates it. Both are shown.
+
+  Parameters (base)
+      Domestic KW bill             ~55M workers * ~USD 11k = USD 605B
+      Domestic addressable         14% -> USD 85B
+      Domestic lift / adoption      14% / 22%
+      IT/ITES export value         ~USD 220B
+      Share in-scope (code+docs)   50% -> USD 110B
+      Export lift / adoption        18% / 40%
+      Quality factor, domestic      1.50
+      Quality factor, export       2.20 (client defect avoidance)
+
+  2035 surplus
+      Domestic: 85B * 0.14 * 0.22 * 1.50 = USD 3.9B
+      Export:   110B * 0.18 * 0.40 * 2.20 = USD 17.4B
+      World surplus from Indian production  USD 21.3B
+      Of export surplus, ~40% retained in India (wages, profits,
+      taxes), ~60% to foreign clients and their customers.
+      India GDP-equivalent                 ~USD 11B
+      Conservative world                   USD  6B
+      Optimistic world                     USD 55B
+        (optimistic needs India moving up the value chain into
+         recipe authorship and agent-graph design, not only
+         cheaper drafting)
+
+  As % of Indian GDP: ~0.26% retained; world effect ~0.51% of
+  Indian GDP in size, but partly booked abroad.
+
+  Where the dollars appear
+      - Same headcount, higher billed realization and fewer
+        warranty fixes.
+      - Movement from BPO "type this" to "own the improvement
+        recipe" — that is the development story.
+      - Domestic government and education in Indic languages:
+        smaller dollar figure, large inclusion effect.
+
+  Monetization fit
+      Team SKUs sold to IT majors and mid-tier exporters, priced
+      in USD for export work and INR for domestic. High volume,
+      mid ARPU. India is also a builder of recipes for the rest
+      of the world — marketplace supply, not only demand. Do not
+      treat India as a cheap-support afterthought.
+
+------------------------------------------------------------------------
+6.4 BRAZIL
+    Type: large emerging mixed economy; Portuguese; inequality;
+          services-heavy but thinner knowledge capital
+------------------------------------------------------------------------
+
+  Why this type matters
+      Brazil is the "middle" case: big enough to matter (USD 2.64T),
+      not a global IT factory like India, not labor-scarce like
+      Japan, and linguistically off the English-default path.
+      Professional, administrative and complementary services already
+      lead non-financial services revenue (IBGE PAS 2024). The
+      question is whether a Portuguese-native iterative improver
+      can raise the quality of contracts, tax filings, judicial
+      writing, and industrial documentation enough to show up in
+      TFP — Latin America's long-standing bottleneck (OECD LEO
+      2025).
+
+  Parameters (base)
+      KW bill                      ~22M * ~USD 16k = USD 352B
+      Addressable share            15% -> USD 53B
+      Lift                          12%
+      Adoption 2035               25%
+      Quality multiplier           1.55
+      Language underserved bonus   +20% on the total
+        (English-first tools leave more headroom)
+
+  2035 surplus
+      Core          53B * 0.12 * 0.25 * 1.55 = USD 2.46B
+      + language 20%                          USD 2.95B
+      Conservative                            USD 0.5B
+      Optimistic                              USD 7.2B
+
+  As % of Brazilian GDP: base ~0.11%.
+
+  Where the dollars appear
+      - Law and tax: Brazil's compliance load is a drafting load.
+      - Industry and agribusiness exporters: bilingual labels,
+        phytosanitary paperwork, better supplier specs.
+      - Public sector: slower adoption, but the Portuguese recipe
+        that works for a bank also works for INSS letters.
+      - Inequality: without a free local model, only Paulista
+        professional firms capture the gain — repeating the IMF
+        cross-country gap inside one country.
+
+  Monetization fit
+      Portuguese recipe pack + São Paulo region + LGPD-native
+      on-prem. Price below U.S. Team ARPU. Partner with local
+      ERPs and lawtech, do not assume GitHub-first distribution.
+      Marketplace authors in PT-BR are a growth strategy.
+
+------------------------------------------------------------------------
+6.5 KENYA
+    Type: lower-middle-income, East African services hub, leapfrog
+------------------------------------------------------------------------
+
+  Why this type matters
+      Kenya is small in dollars (USD 147B GDP) and large as a
+      test of the product's development claim. Services are ~55%
+      of GDP; services employment is still only ~42% — the
+      structural transformation is incomplete. Nairobi already
+      sells BPO, fintech, and government-digital work to the
+      region. Connectivity, device RAM, and API prices are the
+      binding constraints, which is exactly why a WebGPU / local
+      1B-4B model improver is a different product from a USD 20
+      cloud seat. If the surplus is negligible here, the "world"
+      story is just the OECD plus India.
+
+  Parameters (base)
+      KW bill                      ~2.2M * ~USD 7.5k = USD 16.5B
+      Addressable share            20% -> USD 3.3B
+        (document-heavy government + BPO, so share is higher)
+      Lift                          22% (larger gap vs incumbents)
+      Adoption 2035               18%
+      Quality multiplier           1.80 (public-service clarity,
+                                          health/education text)
+      Extra export channel        USD 0.55B
+        (win more regional BPO / government-digital contracts
+         because English and Swahili artifacts get better)
+
+  2035 surplus
+      Domestic  3.3B * 0.22 * 0.18 * 1.80 = USD 0.24B
+      + export add-on                       USD 0.55B
+      Total base                             USD 0.79B
+      Conservative                           USD 0.25B
+      Optimistic                             USD 2.1B
+        (optimistic = BPO export scales and ministries actually
+         deploy local models, not a PDF of an AI strategy)
+
+  As % of Kenyan GDP: base ~0.54% — similar intensity to the U.S.,
+  from a very different starting point. In a USD 147B economy,
+  USD 0.8B is a visible macro number, comparable to a moderate
+  export sector standing up.
+
+  Where the dollars appear
+      - BPO: higher quality per agent, more contracts, some wage
+        rise. World Bank-cited 15% support-agent gains are the
+        closest empirical cousin.
+      - Ministries and counties: forms, health leaflets, tender
+        documents. Welfare > GDP.
+      - SMEs using M-Pesa-class digital rails: better proposals
+        and policies in English/Swahili.
+      - Regional spillover: Uganda, Rwanda, Ethiopia buyers of
+        Nairobi-written systems.
+
+  Monetization fit
+      Do not lead with USD 30 seats. Ship:
+        - free local improver tuned for low VRAM
+        - ministry/education license at a few dollars per seat
+        - export-team SKU for BPO firms that can pay USD
+      This is not the P&L core. It is the proof that the on-device
+      architecture was not a toy, and it is how Swahili (and later
+      other African language) recipes get written. Treat it as
+      a strategic market, funded by U.S./Japan gross profit.
+
+
+========================================================================
+7. SIDE-BY-SIDE (BASE, 2035)
+========================================================================
+
+  Country     Type                         Surplus    % of GDP   ARPU logic
+  ----------  ---------------------------  ---------  ---------   ----------
+  USA         Advanced knowledge services  $178B      0.55%     High seat
+  Japan       Aging industrial high-income $34B      0.79%     High ACV
+  India       Emerging digital exporter     $21B*     0.51%**   Mid seat
+  Brazil      Emerging mixed, Portuguese    $3.0B     0.11%     Mid-low
+  Kenya       LMIC digital hub               $0.8B     0.54%     Low seat,
+                                                                 high mission
+
+  * World surplus from Indian production; ~$11B retained in India.
+  ** World surplus / Indian GDP; retained ~0.26% of GDP.
+
+  Reading the variance
+      Intensity (% of GDP) is highest in Japan (labor scarcity) and
+      still high in Kenya (large drafting gap, export option).
+      Absolute dollars follow the knowledge-worker wage bill, so
+      the U.S. dominates. Brazil's low intensity is the honest
+      forecast unless Portuguese recipes and LGPD-local deploy-
+      ment actually happen — a managerial variable, not a law
+      of economics.
+
+
+========================================================================
+8. RISKS, EQUITY, AND WHAT WOULD FALSIFY THIS
+========================================================================
+
+8.1 Product risks
+      - Generic chatbots absorb the loop (OpenAI/Google/Microsoft
+        ship "iterate until rubric" as a checkbox). Then vendor
+        revenue collapses toward zero and user surplus still
+        exists — it just is not capturable by Curioforce.
+      - Small local models never get good enough at criticism, so
+        the privacy story cannot carry quality. Hybrid routing
+        becomes mandatory and COGS rise.
+      - Recursive polishing without verifiers produces fluent
+        falsehoods. That destroys enterprise trust in one cycle.
+
+8.2 Economic risks
+      - Adoption stalls at pilots (the World Bank 2026 caution:
+        task gains do not become TFP without org change).
+      - Surplus shows up as consumer surplus and is invisible in
+        GDP (better public letters, less frustration).
+      - Displacement: drafting jobs shrink faster than new recipe
+        jobs appear. World surplus can still be positive while
+        a cohort of workers loses.
+
+8.3 Equity
+      IMF 2025: advanced economies can see up to twice the income
+      gain of low-income countries from AI. This product will
+      reproduce that pattern if it is only a USD 30 cloud seat.
+      The on-device path, Indic/Portuguese/Japanese/Swahili
+      recipes, and public-sector SKUs are the counterweights.
+      They are also why Kenya is in the sample.
+
+8.4 What would make the base case too high
+      - In-scope share is 8% not 14% (people spend less time
+        drafting than assumed).
+      - Incremental lift is 4% not 12% (generic chat was enough).
+      - Adoption of specialized tools caps at 10%.
+
+      All three together would cut the 2035 base from ~USD 404B
+      to on the order of USD 40-50B. Still larger than the
+      vendor market; no longer a macro event.
+
+8.5 What would make the base case too low
+      - Agent swarms make "improved inputs" the bottleneck for
+        a much larger share of GDP (every firm runs hundreds of
+        agents, each as hungry for good prompts/specs as a junior
+        analyst).
+      - Source-loop self-improvement compounds (the improver's
+        own recipes get better on a measured eval, quarterly).
+      - Trade catch-up (WTO's high scenario) lets India, Brazil,
+        and Kenya take more of the client surplus.
+
+      That is the optimistic USD 1.3T / year world.
+
+
+========================================================================
+9. RECOMMENDED SEQUENCE (PRODUCT + MONEY + MISSION)
+========================================================================
+
+  1. Keep the MIT core and the local WebLLM path. It is the
+     identity of the project and the development-economics
+     instrument.
+
+  2. Productize the trajectory: typed artifacts, rubrics, stop
+     conditions, transcripts. This is what enterprises buy.
+
+  3. Add two agents (critic + verifier) before adding ten. A
+     loop with a real stop condition beats a zoo of personalities.
+
+  4. Ship the source-code surface (PR improver) to capture U.S.
+     and Indian engineering spend.
+
+  5. Price Pro/Team in USD; build a Japanese on-prem SKU next;
+     commission Portuguese and Swahili recipe packs before
+     advertising in those markets.
+
+  6. Measure surplus the way this document does: minutes to
+     accepted artifact, defect escape rate, eval scores — not
+     vanity iteration counts.
+
+  7. Revisit the numbers in 2028 with actual conversion, ACV, and
+     a couple of careful difference-in-differences studies in
+     one software org, one Japanese manufacturer, and one BPO
+     floor. Until then, treat USD 0.4T / year in 2035 as a
+     structured scenario, not a promise.
+
+
+========================================================================
+10. SOURCES AND ANCHORS
+========================================================================
+
+  Product
+      ai-iterative-improver README and iterative-improver.html
+      (WebLLM, Llama-3.2-1B, recursive cards).
+      Beta: https://recursive-ai.curioforce.com/beta/
+
+  Macro
+      IMF World Economic Outlook, April 2026, GDP current USD
+        (US 32.38T, Japan 4.38T, India 4.15T, Brazil 2.64T,
+         Kenya 147.26B).
+      IMF WP/25/76, April 2025, "The Global Impact of AI: Mind
+        the Gap" (world GDP +1.3% to +4% over 10 years in low/high
+        TFP; AEs up to ~2x LICs).
+      World Bank, Global Economic Prospects, June 2026 (task-level
+        AI productivity evidence, including 15% in Philippine
+        support).
+      PwC, "Value in Motion", April 2025 (AI up to +15 p.p. of
+        global GDP by 2035 in the high-trust scenario; +1% in the
+        pessimistic; used only as an outer ceiling).
+      WTO staff working paper ERSD-2025-09 (AI and trade; up to
+        +13.2% world GDP over 15 years in the most favorable
+        catch-up scenario).
+      UN DESA, World Economic Situation and Prospects 2026
+        (~2.7% world growth; AI gains likely uneven).
+
+  Labor and markets
+      Knowledge-worker compensation syntheses, 2025-2026:
+        global ~USD 35-50T; U.S. ~USD 6-12T (occupational wage
+        bills). Central values used: global USD 42T, U.S. USD 10.5T.
+      WIPO, World Intangible Investment Highlights 2026 (U.S.
+        intangible intensity 15.6% of GDP; Japan tangible still
+        > intangible).
+      NSF NSB 2026: U.S. KTI industries ~USD 3.3T, 11% of GDP.
+      India PIB / RBI software and ITES export structure, FY25.
+      IBGE PAS 2024 (Brazil services employment and revenue mix).
+      World Bank / ILO-style services shares: Kenya services
+        ~55% of GDP, ~42% of employment.
+      AI writing tools market ~USD 2.74B in 2026, ~USD 18B by 2035
+        (segment research; used for category TAM, not surplus).
+      Public pricing analogues, 2026: Grammarly Pro ~USD 12-30 /
+        month; GitHub Copilot Business ~USD 19 / user / month,
+        Enterprise ~USD 39.
+
+  Task-level productivity (used as haircut inputs, not as
+  macro copy-paste)
+      Noy & Zhang, Science 2023; Brynjolfsson, Li & Raymond;
+      various Copilot randomized or quasi-experimental studies.
+
+  Interpretation rule used throughout: task-level 15-50% gains
+  apply to a minority of time, are partly already captured by
+  generic chat, and leak when they hit organizational reality.
+  The 6-22% incremental lift on a 12-18% time slice is the
+  resulting planning band.
+
+
+========================================================================
+11. ONE-PAGE BOTTOM LINE
+========================================================================
+
+  The current recursive WebLLM demo is a prototype of an input
+  compiler. Its future is three nested loops — artifact, agent,
+  source — with on-device inference as the default and cloud as
+  the overflow.
+
+  Monetize the loop, the organizational memory, and the recipes.
+  Give the local model away. Expect a well-run vendor to be a
+  hundreds-of-millions ARR company by 2035 in the base case, not
+  a tens-of-trillions one. That is a good business.
+
+  The world-facing claim is larger: if specialized iterative
+  improvement of documents, prompts, and code reaches about a
+  third of in-scope knowledge work by 2035, extra surplus on the
+  order of USD 0.4 trillion per year (range ~USD 0.08-1.3T) is
+  the planning central case, or about USD 2 trillion cumulative
+  over 2027-2035. That is ~0.3% of world GDP — real money, not
+  a new industrial revolution by itself.
+
+  In five different economic systems that surplus would look like:
+
+      United States   ~USD 178B / year  — cash and software quality
+      Japan          ~USD  34B / year  — labor-shortage relief
+      India          ~USD  21B / year  — exported quality (half
+                                          kept at home)
+      Brazil         ~USD   3B / year  — Portuguese professional
+                                          and compliance work
+      Kenya          ~USD 0.8B / year  — BPO + public clarity,
+                                          large as a share of GDP
+
+  The honest uncertainty is a factor of about five either side of
+  the base, driven by adoption and by whether verifiers keep
+  recursive improvement from becoming fluent noise. The product
+  work that most changes the economic outcome is therefore not a
+  larger marketing budget. It is a better stop condition.
+
+— end of note —
+)
